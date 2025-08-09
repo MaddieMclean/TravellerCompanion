@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
+import Character from "./Character"
 
 function CharacterList() {
   const [characterList, setCharacterList] = useState([]);
@@ -26,7 +27,7 @@ function CharacterList() {
     <div>
       <ul>
         {characterList.map((character) => (
-          <li>{character.name}</li>
+          <li><Character name={character.name} hp={character.hp}/></li>
         ))}
       </ul>
     </div>

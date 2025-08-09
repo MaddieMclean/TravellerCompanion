@@ -1,20 +1,34 @@
-import './App.css';
-import { useState } from "react";
-import CharacterName from "./components/CharacterName"
-import HpTracker from "./components/HpTracker"
-import SaveCharacter from "./components/SaveCharacter";
-import CharacterList from "./components/CharacterList"
+import "./App.css";
+import { useState, useEffect } from "react";
+import { onAuthStateChanged } from "firebase/auth";
+import CharacterList from "./components/CharacterList";
+import LogOut from "./components/LogOut";
+import Login from "./components/Login";
+import { auth } from "./firebase";
 
 function App() {
-  const [name, setName] = useState("Dee Fault")
-  const [currentHp, setHp] = useState(0);
+  const [currentUser, setCurrentUser] = useState(null);
+
+  function updateUser() {
+    if (auth.currentUser) {
+      setCurrentUser(auth.currentUser.uid);
+    } else {
+      setCurrentUser(null);
+    }
+  }
+
+  useEffect(() => {
+    onAuthStateChanged(auth, updateUser);
+  });
+
+  if (currentUser == null) {
+    return <Login />;
+  }
 
   return (
     <div className="App">
-      <CharacterName name={name} setName={setName}/>
-      <HpTracker currentHp={currentHp} setHp={setHp}/>
-      <SaveCharacter name={name} currentHp={currentHp}/>
-      <CharacterList/>
+      <CharacterList />
+      <LogOut />
     </div>
   );
 }
