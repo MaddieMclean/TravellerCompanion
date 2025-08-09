@@ -1,7 +1,6 @@
 import { useState } from "react";
 
-function HpTracker(){
-    const [currentHp, setHp] = useState(0);
+function HpTracker({currentHp, setHp}){
     const [hpMod, setHpMod] = useState(0);
 
     function handleClick(){
