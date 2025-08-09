@@ -1,8 +1,8 @@
 import { useState, useRef, useEffect } from "react";
 
-function CharacterName({ name, setName }) {
+function CharacterName({ name, setName, editMode }) {
   const [isEditing, setIsEditing] = useState(false);
-  const inputRef = useRef(null)
+  const inputRef = useRef(null);
 
   function handleNameChange(element) {
     setName(element.target.value);
@@ -15,6 +15,12 @@ function CharacterName({ name, setName }) {
   function handleKeyDown(element) {
     if (element.key === "Enter") {
       setIsEditing(false);
+    }
+  }
+
+  function handleOnClick() {
+    if (editMode) {
+      setIsEditing(true);
     }
   }
 
@@ -37,7 +43,7 @@ function CharacterName({ name, setName }) {
     );
   }
 
-  return <h1 onClick={() => setIsEditing(true)}>Character Name: {name}</h1>;
+  return <h1 onClick={handleOnClick}>Character Name: {name}</h1>;
 }
 
 export default CharacterName;

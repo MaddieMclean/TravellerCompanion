@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function HpTracker({ currentHp, setHp }) {
+function HpTracker({ currentHp, setHp, editMode }) {
   const [hpMod, setHpMod] = useState(0);
 
   function handleClick() {
@@ -10,6 +10,14 @@ function HpTracker({ currentHp, setHp }) {
 
   function updateHpMod(element) {
     setHpMod(Number(element.target.value));
+  }
+
+  if (!editMode) {
+    return (
+      <div>
+        <p>Current HP: {currentHp}</p>
+      </div>
+    );
   }
 
   return (

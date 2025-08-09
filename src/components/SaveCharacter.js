@@ -1,11 +1,11 @@
 import { db, auth } from "../firebase";
-import { addDoc, collection } from "firebase/firestore";
+import { setDoc, doc } from "firebase/firestore";
 
-function SaveCharacter({ name, currentHp }) {
+function SaveCharacter({ name, currentHp, id, editMode }) {
   const saveCharacter = async () => {
     // move to using setDoc so I can save specific characters
     try {
-      const docRef = await addDoc(collection(db, "characters"), {
+      const docRef = await setDoc(doc(db, "characters", id), {
         name: name,
         hp: currentHp,
         ownerId: auth.currentUser.uid,
@@ -18,6 +18,10 @@ function SaveCharacter({ name, currentHp }) {
 
   function handleClick() {
     saveCharacter();
+  }
+
+  if (!editMode) {
+    return null;
   }
 
   return (

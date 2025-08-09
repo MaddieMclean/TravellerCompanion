@@ -27,6 +27,7 @@ function App() {
 
   return (
     <div className="App">
+      <p>Current User: {auth.currentUser.uid}</p>
       <CharacterList />
       <LogOut />
     </div>

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../firebase";
-import Character from "./Character"
+import Character from "./Character";
 
 function CharacterList() {
   const [characterList, setCharacterList] = useState([]);
@@ -12,7 +12,7 @@ function CharacterList() {
       ...doc.data(),
     }));
     setCharacterList(characterData);
-  };
+  }
 
   useEffect(() => {
     const charactersCollection = collection(db, "characters");
@@ -27,7 +27,14 @@ function CharacterList() {
     <div>
       <ul>
         {characterList.map((character) => (
-          <li><Character name={character.name} hp={character.hp}/></li>
+          <li>
+            <Character
+              name={character.name}
+              hp={character.hp}
+              ownerId={character.ownerId}
+              id={character.id}
+            />
+          </li>
         ))}
       </ul>
     </div>
